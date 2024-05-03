@@ -1,0 +1,16 @@
+{% extends "TransactionRecord/base/base.html" %} {% block content %}
+
+<div class="h-screen w-full flex flex-col items-center justify-center">
+  <div class="h-3/4 w-1/2">
+    {% for field in form %} {{field.label}} {{field}} {% endfor %}
+
+    <div class="w-full flex justify-center">
+      <button
+        class="p-2 px-2 text-white bg-blue-400 font-semibold text-xl rounded rounded-lg mt-4"
+      >
+        Submit Record
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock content %}
