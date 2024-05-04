@@ -38,7 +38,7 @@ def register(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])
             user.bh_id = f'{user.barangay}-{uuid4()}'
-            user.contact_number = '+63' + user.contact_number if not user.contact_number.startswith('+63') else user.contact_number
+            user.contact_number = '+63' + user.contact_number[1:] if user.contact_number.startswith('0') else user.contact_number
             qr = qrcode.make(user.bh_id)
             qr_io = BytesIO()
             qr.save(qr_io, format='PNG')
