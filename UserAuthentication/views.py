@@ -11,18 +11,6 @@ from uuid import uuid4
 from twilio.rest import Client 
 from django.contrib.auth.hashers import make_password
 
-account_sid = "AC6a108c9149464864b9e8d87cca74a323"
-auth_token = "7c8e335d12c5802de76fa3c1d555f8dc"
-client = Client(account_sid, auth_token)
-
-
-# Create your views here.
-def verify_user_code(phone_number, code):
-    
-    verification_check = client.verify.services('VAea94f418f41f18ed40c27bb98c833dff') \
-        .verification_checks \
-        .create(to=phone_number, code=code)
-    return verification_check.status == "approved"
 
 def register(request):
     if request.method == "GET":
