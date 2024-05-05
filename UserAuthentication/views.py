@@ -18,11 +18,13 @@ client = Client(account_sid, auth_token)
 
 # Create your views here.
 def verify_user_code(phone_number, code):
-    
-    verification_check = client.verify.services('VAea94f418f41f18ed40c27bb98c833dff') \
-        .verification_checks \
-        .create(to=phone_number, code=code)
-        
+    try:
+        verification_check = client.verify.services('VAea94f418f41f18ed40c27bb98c833dff') \
+            .verification_checks \
+            .create(to=phone_number, code=code)
+            
+    except Exception as e:
+        pass
     
     return verification_check.status == "approved"
 
