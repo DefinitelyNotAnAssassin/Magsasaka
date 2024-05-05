@@ -4,7 +4,7 @@
   <div
     class="flex h-full bg-white md:w-1/2 rounded mt-6 mb-8 mb-4 justify-center items-centerv overflow-y-auto"
   >
-  
+
     <form
       action="{% url 'register' %}"
       method="post"
@@ -16,7 +16,7 @@
       enctype="multipart/form-data"
 
     >
-    
+
       <h2 class="text-2xl font-bold mt-6 text-center">
         BH Membership Registration
       </h2>
@@ -51,7 +51,7 @@
 
         {% elif forloop.last and not forloop.counter|divisibleby:"2" %}
     </div>
-       
+
 
       {% endif %} {% endfor %}
     </div>
@@ -63,14 +63,14 @@
           Submit
         </button>
       </div>
-      
+
     </form>
   </div>
   <div
     class="items-center justify-center h-full bg-primary md:w-1/2 hidden md:flex bg-[#970029]"
   >
   <img src="https://i.ibb.co/RHM6HmM/439672685-420679090703762-8486968882737569941-n.jpg" alt="BH Poster" border="0">
-  
+
   </div>
 </div>
 
@@ -87,18 +87,18 @@
       alert('Password must be at least 8 characters long');
       return false;
     }
-    // check if all fields are filled 
+    // check if all fields are filled
     var isValid = true;
     const fields = document.querySelectorAll('input');
     for (let i = 0; i < fields.length - 1; i++) {
-      if (fields[i].value === '') {
+      if (fields[i].value === '' && fields[i].name != "precinct_number") {
         fields[i].previousElementSibling.style.color = 'red';
-       
+
         isValid = false;
       }
       else{
         fields[i].previousElementSibling.style.color = 'black';
-      
+
       }
 
     }
@@ -106,11 +106,11 @@
 
     const phoneNumber = document.getElementById('id_contact_number').value;
     const phoneNumberRegex = /^(09|\+639)\d{9}$/;
-    
+
     if (isValid === false) {
       alert('Please fill in all fields');
       return false;
-    
+
     }
     else if (!phoneNumberRegex.test(phoneNumber)) {
 
@@ -126,7 +126,7 @@
     }
 
 
-    
+
 
 
 
