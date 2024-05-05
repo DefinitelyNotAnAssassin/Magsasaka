@@ -69,11 +69,8 @@
   <div
     class="items-center justify-center h-full bg-primary md:w-1/2 hidden md:flex bg-[#970029]"
   >
-    <img
-      src="https://scontent.xx.fbcdn.net/v/t1.15752-9/439672685_420679090703762_8486968882737569941_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeH-8aL3Vu4ouBDVTRLDaXL3zGHwi9Eo0uzMYfCL0SjS7M_y1s5u9fN1t-geEwhzeL8fZgUfCVRFBFVayxq0rU9f&_nc_ohc=68ZgouT6VuAQ7kNvgEOwRGc&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_Q7cD1QFTdPn0pav7TzkFHTF6c_jO9D9Mpt1tpo6s2r12ItQ9dw&oe=6655EA8A"
-      class=""
-      alt="BHs Logo"
-    />
+  <img src="https://i.ibb.co/RHM6HmM/439672685-420679090703762-8486968882737569941-n.jpg" alt="BH Poster" border="0">
+  
   </div>
 </div>
 
@@ -83,14 +80,56 @@
 
   const validateForm = () => {
     const password = document.getElementById('id_password').value;
+    const contact_number = document.getElementById('id_contact_number').value;
     // Add your password validation logic here
     // Example: Check if the password is at least 8 characters long
     if (password.length < 8) {
       alert('Password must be at least 8 characters long');
       return false;
     }
-    // Add more validation rules as needed
-    return true;
+    // check if all fields are filled 
+    var isValid = true;
+    const fields = document.querySelectorAll('input');
+    for (let i = 0; i < fields.length; i++) {
+      if (fields[i].value === '') {
+        fields[i].previousElementSibling.style.color = 'red';
+       
+        isValid = false;
+      }
+      else{
+        fields[i].previousElementSibling.style.color = 'black';
+      
+      }
+
+    }
+
+
+    const phoneNumber = document.getElementById('id_contact_number').value;
+    const phoneNumberRegex = /^(09|\+639)\d{9}$/;
+    
+    if (isValid === false) {
+      alert('Please fill in all fields');
+      return false;
+    
+    }
+    else if (!phoneNumberRegex.test(phoneNumber)) {
+
+      alert('Invalid phone number. Please enter a valid 11-digit phone number starting with +63 or 09.');
+      contact_number.previousElementSibling.style.color = 'red';
+      return false;
+    }
+
+
+
+    else{
+      return true;
+    }
+
+
+    
+
+
+
   }
 </script>
 
