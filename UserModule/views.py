@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth import login
-from UserAuthentication.models import Account 
+from UserAuthentication.models import Account
 # Create your views here.
 
 def virtual_id(request):
-    signature = request.user.signature.url.replace('UserModule/', '')
-    photo = request.user.photo.url.replace('UserModule/', '') 
-    qr_code = request.user.qr_code.url.replace('UserModule/', '')
-    items = { 
+    signature = request.user.signature.url.replace('/BagongHenerasyon/UserModule/', '')
+    photo = request.user.photo.url.replace('/BagongHenerasyon/UserModule/', '')
+    qr_code = request.user.qr_code.url.replace('/BagongHenerasyon/UserModule/', '')
+    items = {
              'current_user': request.user,
                 'signature': signature,
                 'photo': photo,
