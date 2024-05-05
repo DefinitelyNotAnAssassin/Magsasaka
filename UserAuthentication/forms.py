@@ -9,9 +9,10 @@ QUEZON_CITY = Municipality.objects.get(name = 'QUEZON CITY')
 
 BARANGAYS = Barangay.objects.filter(municipality = QUEZON_CITY)
 class UserForm(ModelForm):
-    barangay = forms.ModelChoiceField(queryset=BARANGAYS, widget=forms.Select(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
-    region = forms.ChoiceField(choices = [('NCR', 'NCR')], widget=forms.Select(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
-    city = forms.ChoiceField(choices = [(QUEZON_CITY.pk, 'QUEZON CITY')], widget=forms.Select(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
+    barangay = forms.CharField(widget=forms.TextInput(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
+    region = forms.CharField(widget=forms.TextInput(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
+    city = forms.CharField(widget=forms.TextInput(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
+    e_wallet_account = forms.ChoiceField(choices=[('GCASH', 'GCASH'), ('PAYMAYA', 'PAYMAYA')], widget=forms.Select(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
     class Meta:
         model = Account
         fields = ['username', 'password', 'last_name', 'first_name', 'maiden_name', 'birthday', 'age', 'region', 'district', 'city', 'street', 'house_no', 'barangay', 'e_wallet_account', 'e_wallet_account_name', 'e_wallet_account_number', 'precinct_number', 'family_voters_count', 'fb_messenger_account', 'contact_number', 'photo', 'signature']

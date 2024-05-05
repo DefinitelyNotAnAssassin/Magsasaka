@@ -139,7 +139,8 @@ def verification(request, bh_id = None):
         if verify_user_code(phone_number=account.contact_number, code = OTP): 
             account.isVerified = True 
             account.save()
-            return redirect('login')
+            login_user(request, account)
+            return redirect('virtual_id')
         else:
             return redirect('verification', account.bh_id)
     else: 
