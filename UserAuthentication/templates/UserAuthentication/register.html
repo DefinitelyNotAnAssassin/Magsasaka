@@ -90,7 +90,7 @@
     // check if all fields are filled 
     var isValid = true;
     const fields = document.querySelectorAll('input');
-    for (let i = 0; i < fields.length; i++) {
+    for (let i = 0; i < fields.length - 1; i++) {
       if (fields[i].value === '') {
         fields[i].previousElementSibling.style.color = 'red';
        
