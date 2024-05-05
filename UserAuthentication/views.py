@@ -12,7 +12,7 @@ from twilio.rest import Client
 from django.contrib.auth.hashers import make_password
 
 account_sid = "AC6a108c9149464864b9e8d87cca74a323"
-auth_token = "7c8e335d12c5802de76fa3c1d555f8dc"
+auth_token = "c210e2a47cd6968d3ca14eb39e33c830"
 client = Client(account_sid, auth_token)
 
 
