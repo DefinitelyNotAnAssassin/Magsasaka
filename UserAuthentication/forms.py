@@ -15,7 +15,7 @@ class UserForm(ModelForm):
     e_wallet_account = forms.ChoiceField(choices=[('GCASH', 'GCASH'), ('PAYMAYA', 'PAYMAYA')], widget=forms.Select(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
     class Meta:
         model = Account
-        fields = ['username', 'password', 'last_name', 'first_name', 'maiden_name', 'birthday', 'age', 'region', 'district', 'city_municipality', 'street', 'house_no', 'barangay', 'e_wallet_account', 'e_wallet_account_name', 'e_wallet_account_number', 'precinct_number', 'family_voters_count', 'fb_messenger_account', 'contact_number', 'photo', 'signature']
+        fields = ['username', 'password', 'last_name', 'first_name', 'maiden_name', 'birthday', 'age', 'region', 'district', 'city_municipality', 'street', 'house_no', 'barangay', 'e_wallet_account', 'precinct_number', 'fb_messenger_account', 'contact_number', 'photo', 'signature']
         widgets = {
             'username': forms.TextInput(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}),
             'password': forms.PasswordInput(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}),
