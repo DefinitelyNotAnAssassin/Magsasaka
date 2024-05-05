@@ -51,7 +51,7 @@
                 <p>Didn't recieve code?</p>
                 <a
                   class="flex flex-row items-center text-blue-600"
-                  href="http://"
+                  href="{% url 'resend_verification' account.bh_id %}"
                   target="_blank"
                   rel="noopener noreferrer"
                   >Resend</a

@@ -22,7 +22,18 @@ def verify_user_code(phone_number, code):
     verification_check = client.verify.services('VAea94f418f41f18ed40c27bb98c833dff') \
         .verification_checks \
         .create(to=phone_number, code=code)
+        
+    
     return verification_check.status == "approved"
+
+
+def resend_verification(request, bh_id):
+    account = Account.objects.get(bh_id = bh_id)
+    verification = client.verify.services('VAea94f418f41f18ed40c27bb98c833dff') \
+    .verifications \
+    .create(to=f'{account.contact_number}', channel='sms')
+    
+    return redirect('verification', bh_id)
 
 def register(request):
     if request.method == "GET":
