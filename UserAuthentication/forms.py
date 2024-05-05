@@ -14,7 +14,7 @@ class UserForm(ModelForm):
     city = forms.ChoiceField(choices = [(QUEZON_CITY.pk, 'QUEZON CITY')], widget=forms.Select(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
     class Meta:
         model = Account
-        fields = ['username', 'password', 'last_name', 'first_name', 'maiden_name', 'birthday', 'age', 'region', 'district', 'city', 'street', 'house_no', 'barangay', 'e_wallet_account', 'e_wallet_account_name', 'e_wallet_account_number', 'precinct_number', 'family_voters_count', 'fb_messenger_account', 'contact_number', 'photo', 'signature', 'location', 'bh_social_services', 'project_in_my_area']
+        fields = ['username', 'password', 'last_name', 'first_name', 'maiden_name', 'birthday', 'age', 'region', 'district', 'city', 'street', 'house_no', 'barangay', 'e_wallet_account', 'e_wallet_account_name', 'e_wallet_account_number', 'precinct_number', 'family_voters_count', 'fb_messenger_account', 'contact_number', 'photo', 'signature']
         widgets = {
             'username': forms.TextInput(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}),
             'password': forms.PasswordInput(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}),
@@ -39,7 +39,7 @@ class UserForm(ModelForm):
             'location': forms.TextInput(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}),
             'bh_social_services': forms.TextInput(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}),
             'project_in_my_area': forms.TextInput(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}),
-               }
+        }
 
 
 class LoginForm(ModelForm):

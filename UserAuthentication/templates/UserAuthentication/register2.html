@@ -4,7 +4,6 @@
   <div
     class="flex h-full bg-white md:w-1/2 rounded mt-6 mb-8 mb-4 justify-center items-centerv overflow-y-auto"
   >
-  
     <form
       action="{% url 'register' %}"
       method="post"
@@ -16,17 +15,10 @@
       enctype="multipart/form-data"
 
     >
-    
       <h2 class="text-2xl font-bold mt-6 text-center">
         BH Membership Registration
       </h2>
-      <div class=" text-center">
-        <a
-          class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 mb-8"
-          href="{% url 'login' %}"
-          >Already have an account? Sign In</a
-        >
-      </div>
+
       {% csrf_token %} {% if form.errors %}
       <div class="alert alert-danger">
         <ul id="errorList" class="text-red-500">
@@ -60,10 +52,16 @@
           class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="submit"
         >
-          Submit
+          Sign Up
         </button>
       </div>
-      
+      <div class="mt-4 text-center">
+        <a
+          class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+          href="{% url 'login' %}"
+          >Already have an account? Sign In</a
+        >
+      </div>
     </form>
   </div>
   <div

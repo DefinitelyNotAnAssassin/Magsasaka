@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # Create your views here.
 
 
@@ -7,6 +7,6 @@ def index(request):
         if request.user.is_superuser:
             return render(request, 'LandingPage/admin_index.html')
         else:
-            return render(request, 'LandingPage/user_index.html')
+            return redirect('virtual_id')
     else: 
         return render(request, 'LandingPage/index.html')

@@ -86,7 +86,7 @@ def login(request):
                 return redirect('verification', authenticated_user.bh_id)
             else:
                 login_user(request, authenticated_user)
-                return redirect('index')
+                return redirect('virtual_id')
             
             
         else:
