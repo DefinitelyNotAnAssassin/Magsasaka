@@ -1,15 +1,16 @@
 from io import BytesIO
+from uuid import uuid4
+import qrcode
+from django.contrib.auth import login as login_user, authenticate, logout as logout_user
+from django.core.files import File
 from django.shortcuts import render, redirect
 from UserAuthentication.forms import UserForm, LoginForm
-from django.contrib.auth import login as login_user, authenticate, logout as logout_user
 from UserAuthentication.models import Account
-
-import django.contrib.messages as messages
-from django.core.files import File
-import qrcode
-from uuid import uuid4
 from twilio.rest import Client
-from django.contrib.auth.hashers import make_password
+from ph_geography.models import Municipality, Province, Barangay    
+import django.contrib.messages as messages
+from django.http import JsonResponse
+
 
 account_sid = "AC6a108c9149464864b9e8d87cca74a323"
 auth_token = "c210e2a47cd6968d3ca14eb39e33c830"
@@ -24,18 +25,22 @@ def verify_user_code(phone_number, code):
             .create(to=phone_number, code=code)
 
     except Exception as e:
-        pass
+        return redirect('index')
 
     return verification_check.status == "approved"
 
 
 def resend_verification(request, bh_id):
-    account = Account.objects.get(bh_id = bh_id)
-    verification = client.verify.services('VAea94f418f41f18ed40c27bb98c833dff') \
-    .verifications \
-    .create(to=f'{account.contact_number}', channel='sms')
+    try:
+        account = Account.objects.get(bh_id = bh_id)
+        verification = client.verify.services('VAea94f418f41f18ed40c27bb98c833dff') \
+        .verifications \
+        .create(to=f'{account.contact_number}', channel='sms')
 
-    return redirect('verification', bh_id)
+        return redirect('verification', bh_id)
+    
+    except: 
+        return redirect('index')
 
 def register(request):
     if request.method == "GET":
@@ -46,35 +51,40 @@ def register(request):
         return render(request, 'UserAuthentication/register.html', context = items)
 
     if request.method == "POST":
-        form = UserForm(request.POST, request.FILES)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])
-            user.bh_id = f'{user.barangay}-{uuid4()}'
-            user.contact_number = '+63' + user.contact_number[1:] if user.contact_number.startswith('0') else user.contact_number
-            qr = qrcode.make(user.bh_id)
-            qr_io = BytesIO()
-            qr.save(qr_io, format='PNG')
-            qr_io.seek(0)
+        try:
+            form = UserForm(request.POST, request.FILES)
+            if form.is_valid():
+                user = form.save(commit=False)
+                user.set_password(form.cleaned_data['password'])
+                user.bh_id = f'{user.barangay}-{uuid4()}'
+                user.contact_number = '+63' + user.contact_number[1:] if user.contact_number.startswith('0') else user.contact_number
+                qr = qrcode.make(user.bh_id)
+                qr_io = BytesIO()
+                qr.save(qr_io, format='PNG')
+                qr_io.seek(0)
 
             # Assign the QR code image to the model's file field
-            user.qr_code.save(f'{user.bh_id}.png', File(qr_io), save=False)
+                user.qr_code.save(f'{user.bh_id}.png', File(qr_io), save=False)
 
-            # Now you can save the user instance, and the file will be committed
-            user.save()
-            form.save()
+                # Now you can save the user instance, and the file will be committed
+                user.save()
+                form.save()
 
-            user.save()
-            form.save()
+                user.save()
+                form.save()
 
-            verification = client.verify.services('VAea94f418f41f18ed40c27bb98c833dff') \
-            .verifications \
-            .create(to=f'{user.contact_number}', channel='sms')
-
-
+                verification = client.verify.services('VAea94f418f41f18ed40c27bb98c833dff') \
+                .verifications \
+                .create(to=f'{user.contact_number}', channel='sms')
 
 
-            return redirect('verification', user.bh_id)
+
+
+                return redirect('verification', user.bh_id)
+        except Exception as e:
+            print(e)
+            return redirect('index')
+        
         else:
             items = {}
             items['form'] = form
@@ -120,17 +130,21 @@ def logout(request):
 
 
 def verification(request, bh_id = None):
+    
     if request.user.is_authenticated:
         return redirect('index')
     if request.method == "GET" and not bh_id == None:
-        account = Account.objects.get(bh_id = bh_id)
+        try:
+            account = Account.objects.get(bh_id = bh_id)
 
-        if not account.isVerified:
-            items = {
-                     'account': account}
-            return render(request, "UserAuthentication/verification.html", context=items)
-        else:
-            login_user(account)
+            if not account.isVerified:
+                items = {
+                        'account': account}
+                return render(request, "UserAuthentication/verification.html", context=items)
+            else:
+                login_user(account)
+                return redirect('index')
+        except:
             return redirect('index')
 
     elif request.method == "POST":
@@ -147,5 +161,21 @@ def verification(request, bh_id = None):
             return redirect('verification', account.bh_id)
     else:
         return redirect('index')
+    
+    
+    
+def getProvinces(request):
+    region = request.GET.get('region')
+    
+    provinces = Province.objects.filter(region__pk = region) 
+    return JsonResponse(list(provinces.values()), safe=False)
 
+def getCities(request):
+    province = request.GET.get('province')
+    cities = Municipality.objects.filter(province__name = province)
+    return JsonResponse(list(cities.values()), safe=False)
+def getBarangays(request):
+    city = request.GET.get('city')
+    barangays = Barangay.objects.filter(municipality_id__name = city)
+    return JsonResponse(list(barangays.values()), safe=False)
 
