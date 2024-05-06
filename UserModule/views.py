@@ -9,8 +9,8 @@ def virtual_id(request):
           signature = request.user.signature.url.replace('UserModule/', '')
         except:
           signature = "https://www.drodd.com/images14/white2.jpg"
-        photo = request.user.photo.url.replace('BagongHenerasyon/UserModule/', '')
-        qr_code = request.user.qr_code.url.replace('BagongHenerasyon/UserModule/', '')
+        photo = request.user.photo.url.replace('UserModule/', '')
+        qr_code = request.user.qr_code.url.replace('UserModule/', '')
         items = {
                 'current_user': request.user,
                    'signature': signature,
