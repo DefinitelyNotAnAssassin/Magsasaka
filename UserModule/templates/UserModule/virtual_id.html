@@ -33,7 +33,11 @@
                   <div class="w-[90%] h-[20%] mx-3  border border-black rounded rounded-lg">
                       <div class = "mx-2">
                           <h1 class = "text-xs">Name: / Maiden Name: </h1>
+<<<<<<< HEAD
                           <h1 class = "font-semibold">{{current_user.last_name}}, {{current_user.first_name}} / {{current_user.maiden_name}}</h1>
+=======
+                          <h1 class = "font-semibold">{{current_user.first_name}} {{current_user.last_name}} / {{current_user.maiden_name}}</h1>
+>>>>>>> 4b5f5284dd4223889a1b7af21630e11eeb4daf7c
 
                       </div>
                   </div>
@@ -43,7 +47,11 @@
 
                   <div class="w-[90%] h-[20%] mx-3  border border-black rounded rounded-lg">
                       <div class = "mx-2">
+<<<<<<< HEAD
                           <h1 class = "text-xs">Province/District/City/Municapility/Barangay</h1>
+=======
+                          <h1 class = "text-xs">Province/District/City/Municaplity/Barangay:</h1>
+>>>>>>> 4b5f5284dd4223889a1b7af21630e11eeb4daf7c
                           <h1 class = "font-semibold">{{current_user.province}}/{{current_user.district}}/{{current_user.city_municipality}}/{{current_user.barangay}}</h1>
 
                       </div>
@@ -64,8 +72,13 @@
                   </div>
                   <div class="w-[90%] h-[20%] mx-3  border border-black rounded rounded-lg">
                       <div class = "mx-2">
+<<<<<<< HEAD
                           <h1 class = "text-xs">Contact No./Precint No.:</h1>
                           <h1 class = "font-semibold">{{current_user.contact_number}}{% if current_user.precinct_number %}/{{current_user.precinct_number}} {% endif %}</h1>
+=======
+                          <h1 class = "text-xs">Contact No./Precint No.</h1>
+                          <h1 class = "font-semibold">{{current_user.contact_number}} {% if current_user.precinct_number %} /{{current_user.precinct_number}} {% endif %}</h1>
+>>>>>>> 4b5f5284dd4223889a1b7af21630e11eeb4daf7c
 
                       </div>
                   </div>
@@ -112,7 +125,8 @@
 
   </div>
 </div>
-
+<a href="{% url 'logout' %}" class = "ml-3  p-1 bg-blue-500 font-semibold text-white rounded px-2">Logout</a>
+<a href="{% url 'edit_profile' %}" class = "ml-3  p-1 bg-red-500 font-semibold text-white rounded px-2">Edit Profile</a>
 
 </div>
 

@@ -4,7 +4,7 @@ import qrcode
 from django.contrib.auth import login as login_user, authenticate, logout as logout_user
 from django.core.files import File
 from django.shortcuts import render, redirect
-from UserAuthentication.forms import UserForm, LoginForm
+from UserAuthentication.forms import UserForm, LoginForm, EditProfileForm
 from UserAuthentication.models import Account
 from twilio.rest import Client
 from ph_geography.models import Municipality, Province, Barangay
@@ -64,16 +64,22 @@ def register(request):
                 qr.save(qr_io, format='PNG')
                 qr_io.seek(0)
 
-            # Assign the QR code image to the model's file field
                 user.qr_code.save(f'{user.bh_id}.png', File(qr_io), save=False)
-
-                # Now you can save the user instance, and the file will be committed
                 user.save()
                 form.save()
 
+<<<<<<< HEAD
                 login_user(request, user);
 
 
+=======
+                user.save()
+                form.save()
+                login_user(request, user)
+
+
+
+>>>>>>> 4b5f5284dd4223889a1b7af21630e11eeb4daf7c
                 return redirect('virtual_id')
         except Exception as e:
             print(e)
@@ -95,6 +101,7 @@ def login(request):
 
         return render(request, 'UserAuthentication/login.html', context = items)
     elif request.method == "POST":
+<<<<<<< HEAD
         try:
             form = LoginForm(request.POST)
             authenticated_user = authenticate(username = form.data['username'], password = form.data['password'])
@@ -105,6 +112,13 @@ def login(request):
                 else:
                     login_user(request, authenticated_user)
                     return redirect('virtual_id')
+=======
+        form = LoginForm(request.POST)
+        authenticated_user = authenticate(username = form.data['username'], password = form.data['password'])
+        if authenticated_user is not None:
+            login_user(request, authenticated_user)
+            return redirect('virtual_id')
+>>>>>>> 4b5f5284dd4223889a1b7af21630e11eeb4daf7c
 
 
             else:
@@ -113,12 +127,41 @@ def login(request):
                 }
                 messages.error(request, 'Invalid username or password')
 
+            return render(request, 'UserAuthentication/login.html', context = items)
 
 
+
+<<<<<<< HEAD
                 return render(request, 'UserAuthentication/login.html', context = items)
         except:
             return redirect('index')
+=======
+>>>>>>> 4b5f5284dd4223889a1b7af21630e11eeb4daf7c
 
+def edit_profile(request):
+    if request.method == "GET":
+        
+        items = {
+            'form': EditProfileForm(instance=request.user)
+        }
+        return render(request, 'UserAuthentication/edit_profile.html', context = items)
+    elif request.method == "POST":
+        try:
+            form = EditProfileForm(request.POST, request.FILES, instance=request.user)
+            if form.is_valid():
+                user = form.save(commit=False)
+                user.contact_number = '+63' + user.contact_number[1:] if user.contact_number.startswith('0') else user.contact_number
+                user.save()
+                form.save()
+                return redirect('virtual_id')
+            else:
+                items = {
+                    'form': form
+                }
+                return render(request, 'UserAuthentication/edit_profile.html', context = items)
+        except Exception as e:
+           
+            return redirect('virtual_id')
 
 
 def logout(request):
@@ -129,7 +172,7 @@ def logout(request):
 def verification(request, bh_id = None):
 
     if request.user.is_authenticated:
-        return redirect('index')
+        return redirect('virtual_id')
     if request.method == "GET" and not bh_id == None:
         try:
             account = Account.objects.get(bh_id = bh_id)
