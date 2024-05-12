@@ -8,11 +8,18 @@ from ph_geography.models import Municipality, Region, Province, Barangay
 
 
 class UserForm(ModelForm):
+<<<<<<< HEAD
     region = forms.ModelChoiceField(queryset=Region.objects.all(), empty_label="Select Region", widget=forms.Select(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
     province = forms.CharField(widget=forms.Select(choices=[],  attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
     city_municipality = forms.CharField(widget=forms.Select(choices=[], attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
     barangay = forms.CharField(widget=forms.Select(choices=[], attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
 
+=======
+    region = forms.CharField(widget=forms.Select(choices=[], attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
+    province = forms.CharField(widget=forms.Select(choices=[], attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
+    city_municipality = forms.CharField(widget=forms.Select(choices=[], attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
+    barangay = forms.CharField(widget=forms.Select(choices=[], attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
+>>>>>>> 907a6aee4702f9ddbf743e8b440cf7bbcfb45d56
     class Meta:
         model = Account
         fields = ['username', 'password', 'last_name', 'first_name', 'maiden_name', 'birthday', 'age', 'region', 'province', 'district', 'city_municipality', 'barangay', 'precinct_number', 'street', 'house_no',  'fb_messenger_account', 'contact_number', 'photo', 'signature']
