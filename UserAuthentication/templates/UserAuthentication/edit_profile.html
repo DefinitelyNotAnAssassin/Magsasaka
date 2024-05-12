@@ -2,11 +2,11 @@
 
 <div class="flex flex-col md:flex-row items-center h-[150vh] md:h-screen">
   <div
-    class="flex h-full bg-white md:w-1/2 rounded mt-6 mb-8 mb-4 justify-center items-centerv overflow-y-auto"
+    class="flex h-full bg-white border w-full  rounded mt-6 mb-8 mb-4 justify-center items-centerv overflow-y-auto"
   >
 
     <form
-      action="{% url 'register' %}"
+      action="{% url 'edit_profile' %}"
       method="post"
       hx-push-url="true"
       hx-target="body"
@@ -18,15 +18,9 @@
     >
 
       <h2 class="text-2xl font-bold mt-6 text-center">
-        BH Membership Registration
+        Update Profile
       </h2>
-      <div class=" text-center">
-        <a
-          class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 mb-8"
-          href="{% url 'login' %}"
-          >Already have an account? Sign In</a
-        >
-      </div>
+
       {% csrf_token %} {% if form.errors %}
       <div class="alert alert-danger">
         <ul id="errorList" class="text-red-500">
@@ -60,18 +54,13 @@
           class="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           type="submit"
         >
-          Submit
+          Update
         </button>
       </div>
 
     </form>
   </div>
-  <div
-    class="items-center justify-center h-full bg-primary md:w-1/2 hidden md:flex bg-[#970029]"
-  >
-  <img src="https://i.ibb.co/RHM6HmM/439672685-420679090703762-8486968882737569941-n.jpg" alt="BH Poster" border="0">
 
-  </div>
 </div>
 
 

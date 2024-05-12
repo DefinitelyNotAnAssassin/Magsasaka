@@ -7,20 +7,18 @@ def virtual_id(request):
     try:
       signature = request.user.signature.url.replace('UserModule/', '')
     except Exception as e:
-      print(f"Error retrieving signature: {e}")
-      return redirect('index')
+      signature = "https://www.drodd.com/images14/white13.png"
     
     try:
       photo = request.user.photo.url.replace('UserModule/', '')
     except Exception as e:
-      print(f"Error retrieving photo: {e}")
-      return redirect('index')
-    
+      photo = "https://www.drodd.com/images14/white13.png"
+   
     try:
       qr_code = request.user.qr_code.url.replace('UserModule/', '')
     except Exception as e:
       print(f"Error retrieving QR code: {e}")
-      return redirect('index')
+\
     
     items = {
       'current_user': request.user,
