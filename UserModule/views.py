@@ -7,21 +7,18 @@ def virtual_id(request):
     try:
       signature = request.user.signature.url.replace('UserModule/', '')
     except Exception as e:
-      print(f"Error retrieving signature: {e}")
-      return redirect('index')
-    
+      signature = "https://cdn.wallpapersafari.com/15/64/s0zmcy.jpg"
+
     try:
       photo = request.user.photo.url.replace('UserModule/', '')
     except Exception as e:
-      print(f"Error retrieving photo: {e}")
-      return redirect('index')
-    
+      photo = "https://cdn.wallpapersafari.com/15/64/s0zmcy.jpg"
+
     try:
       qr_code = request.user.qr_code.url.replace('UserModule/', '')
     except Exception as e:
-      print(f"Error retrieving QR code: {e}")
-      return redirect('index')
-    
+      qr_code = "https://cdn.wallpapersafari.com/15/64/s0zmcy.jpg"
+
     items = {
       'current_user': request.user,
       'signature': signature,

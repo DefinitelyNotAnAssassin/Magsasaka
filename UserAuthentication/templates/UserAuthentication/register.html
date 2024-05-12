@@ -81,17 +81,12 @@
   const validateForm = () => {
     const password = document.getElementById('id_password').value;
     const contact_number = document.getElementById('id_contact_number').value;
-    // Add your password validation logic here
-    // Example: Check if the password is at least 8 characters long
-    if (password.length < 8) {
-      alert('Password must be at least 8 characters long');
-      return false;
-    }
+
     // check if all fields are filled
     var isValid = true;
     const fields = document.querySelectorAll('input');
     for (let i = 0; i < fields.length - 1; i++) {
-      if (fields[i].value === '' && fields[i].name != "precinct_number") {
+      if (fields[i].value === '' && fields[i].name != "precinct_number" && fields[i].name != "fb_messenger_account") {
         fields[i].previousElementSibling.style.color = 'red';
 
         isValid = false;
@@ -127,16 +122,16 @@
 
 
 
-    
+
   }
-  const regionInput = document.getElementById('id_region'); 
+  const regionInput = document.getElementById('id_region');
   regionInput.addEventListener('change', (e) => {
     const region = regionInput.value;
 
     fetch(`/getProvinces?region=${region}`)
       .then(response => response.json())
       .then(data => {
-      
+
       const provinceSelect = document.getElementById('id_province');
       provinceSelect.innerHTML = '';
       // Add selected disabled default option
@@ -168,7 +163,7 @@
     fetch(`/getCities?province=${province}`)
     .then(response => response.json())
     .then(data => {
-  
+
       cityInput.innerHTML = '';
       // Add selected disabled default option
       const defaultOption = document.createElement('option');
@@ -195,7 +190,7 @@
     fetch(`/getBarangays?city=${city}`)
     .then(response => response.json())
     .then(data => {
-  
+
       barangayInput.innerHTML = '';
       // Add selected disabled default option
       const defaultOption = document.createElement('option');

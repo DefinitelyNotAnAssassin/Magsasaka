@@ -7,13 +7,13 @@ from django.shortcuts import render, redirect
 from UserAuthentication.forms import UserForm, LoginForm
 from UserAuthentication.models import Account
 from twilio.rest import Client
-from ph_geography.models import Municipality, Province, Barangay    
+from ph_geography.models import Municipality, Province, Barangay
 import django.contrib.messages as messages
 from django.http import JsonResponse
 
 
 account_sid = "AC6a108c9149464864b9e8d87cca74a323"
-auth_token = "c210e2a47cd6968d3ca14eb39e33c830"
+auth_token = "a1d933e79bca8553c28f59c0f4a38c2f"
 client = Client(account_sid, auth_token)
 
 
@@ -25,7 +25,7 @@ def verify_user_code(phone_number, code):
             .create(to=phone_number, code=code)
 
     except Exception as e:
-        return redirect('index')
+        return verification_check.status == "approved"
 
     return verification_check.status == "approved"
 
@@ -38,8 +38,8 @@ def resend_verification(request, bh_id):
         .create(to=f'{account.contact_number}', channel='sms')
 
         return redirect('verification', bh_id)
-    
-    except: 
+
+    except:
         return redirect('index')
 
 def register(request):
@@ -57,6 +57,7 @@ def register(request):
                 user = form.save(commit=False)
                 user.set_password(form.cleaned_data['password'])
                 user.bh_id = f'{user.barangay}-{uuid4()}'
+                user.isVerified = True
                 user.contact_number = '+63' + user.contact_number[1:] if user.contact_number.startswith('0') else user.contact_number
                 qr = qrcode.make(user.bh_id)
                 qr_io = BytesIO()
@@ -70,21 +71,14 @@ def register(request):
                 user.save()
                 form.save()
 
-                user.save()
-                form.save()
-
-                verification = client.verify.services('VAea94f418f41f18ed40c27bb98c833dff') \
-                .verifications \
-                .create(to=f'{user.contact_number}', channel='sms')
+                login_user(request, user);
 
 
-
-
-                return redirect('verification', user.bh_id)
+                return redirect('virtual_id')
         except Exception as e:
             print(e)
-            return redirect('index')
-        
+            return redirect('virtual_id')
+
         else:
             items = {}
             items['form'] = form
@@ -101,26 +95,29 @@ def login(request):
 
         return render(request, 'UserAuthentication/login.html', context = items)
     elif request.method == "POST":
-        form = LoginForm(request.POST)
-        authenticated_user = authenticate(username = form.data['username'], password = form.data['password'])
-        if authenticated_user is not None:
+        try:
+            form = LoginForm(request.POST)
+            authenticated_user = authenticate(username = form.data['username'], password = form.data['password'])
+            if authenticated_user is not None:
 
-            if authenticated_user.isVerified == False:
-                return redirect('verification', authenticated_user.bh_id)
+                if authenticated_user.isVerified == False:
+                    return redirect('verification', authenticated_user.bh_id)
+                else:
+                    login_user(request, authenticated_user)
+                    return redirect('virtual_id')
+
+
             else:
-                login_user(request, authenticated_user)
-                return redirect('virtual_id')
-
-
-        else:
-            items = {
-                'form': form
-            }
-            messages.error(request, 'Invalid username or password')
+                items = {
+                    'form': form
+                }
+                messages.error(request, 'Invalid username or password')
 
 
 
-            return render(request, 'UserAuthentication/login.html', context = items)
+                return render(request, 'UserAuthentication/login.html', context = items)
+        except:
+            return redirect('index')
 
 
 
@@ -130,7 +127,7 @@ def logout(request):
 
 
 def verification(request, bh_id = None):
-    
+
     if request.user.is_authenticated:
         return redirect('index')
     if request.method == "GET" and not bh_id == None:
@@ -148,26 +145,29 @@ def verification(request, bh_id = None):
             return redirect('index')
 
     elif request.method == "POST":
-        data = request.POST
-        OTP = data.get('OTP')
-        account = Account.objects.get(bh_id = bh_id)
-        print(OTP)
-        if verify_user_code(phone_number=account.contact_number, code = OTP):
-            account.isVerified = True
-            account.save()
-            login_user(request, account)
-            return redirect('virtual_id')
-        else:
-            return redirect('verification', account.bh_id)
+        try:
+            data = request.POST
+            OTP = data.get('OTP')
+            account = Account.objects.get(bh_id = bh_id)
+            print(OTP)
+            if verify_user_code(phone_number=account.contact_number, code = OTP):
+                account.isVerified = True
+                account.save()
+                login_user(request, account)
+                return redirect('virtual_id')
+            else:
+                return redirect('verification', account.bh_id)
+        except:
+            return redirect('index')
     else:
         return redirect('index')
-    
-    
-    
+
+
+
 def getProvinces(request):
     region = request.GET.get('region')
-    
-    provinces = Province.objects.filter(region__pk = region) 
+
+    provinces = Province.objects.filter(region__pk = region)
     return JsonResponse(list(provinces.values()), safe=False)
 
 def getCities(request):
