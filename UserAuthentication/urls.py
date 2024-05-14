@@ -10,5 +10,6 @@ urlpatterns = [
                path('resend_verification/<str:bh_id>', views.resend_verification, name = 'resend_verification'),
                path('getProvinces', views.getProvinces, name = 'getProvinces'),
                path('getCities', views.getCities, name = 'getCities'),
-               path('getBarangays', views.getBarangays, name = 'getBarangays')
+               path('getBarangays', views.getBarangays, name = 'getBarangays'),
+               path('checkUsername', views.checkUsername, name = 'checkUsername'),
                ]
