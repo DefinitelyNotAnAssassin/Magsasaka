@@ -133,7 +133,7 @@
 
 
 </script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 <script>
   const regionInput = document.getElementById('id_region'); 
 >>>>>>> 4b5f5284dd4223889a1b7af21630e11eeb4daf7c
@@ -168,6 +168,57 @@
   const provinceInput = document.getElementById('id_province');
   const cityInput = document.getElementById('id_city_municipality');
   const barangayInput = document.getElementById('id_barangay');
+
+const usernameInput = document.getElementById('id_username');  // replace 'id_username' with the actual ID of your username field
+
+// debounce the checkUsername function, so it's only called 300ms after the user stops typing
+const debouncedCheckUsername = _.debounce(checkUsername, 500);
+
+usernameInput.addEventListener('input', debouncedCheckUsername);
+
+function checkUsername() {
+  const username = document.getElementById('id_username').value
+
+  fetch('/checkUsername', {  // replace '/check_username/' with the actual URL of your check_username view
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken')  // getCookie is a function to get the CSRF token. See note below.
+    },
+    body: JSON.stringify({username: username})
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data.username_exists)
+    if (data.username_exists == "true") {
+      // username exists, do something
+      alert('Username already exists. Please choose another username.');
+      usernameInput.value = '';
+    } else {
+      // username does not exist, do something else
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+}
+
+// Function to get a cookie by name. This is used to get the CSRF token.
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
 
   provinceInput.addEventListener('change', (e) => {
     const province = provinceInput.value;

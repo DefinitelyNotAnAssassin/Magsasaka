@@ -10,7 +10,7 @@ from twilio.rest import Client
 from ph_geography.models import Municipality, Province, Barangay
 import django.contrib.messages as messages
 from django.http import JsonResponse
-
+import json
 
 account_sid = "AC6a108c9149464864b9e8d87cca74a323"
 auth_token = "a1d933e79bca8553c28f59c0f4a38c2f"
@@ -222,3 +222,20 @@ def getBarangays(request):
     barangays = Barangay.objects.filter(municipality_id__name = city)
     return JsonResponse(list(barangays.values()), safe=False)
 
+
+
+def checkUsername(request): 
+    # check if the username exists, if it is return true, if its not then false in a jsonresponse 
+    
+    if request.method == "POST":
+        data = request.body.decode('utf-8')
+        data_dict = json.loads(data)
+        username = data_dict['username']
+        if Account.objects.filter(username=username).exists():
+            return JsonResponse({'username_exists': 'true'}, status=200)
+        else:
+            return JsonResponse({'username_exists': 'false'}, status=200)
+
+    return JsonResponse({'error': 'Invalid method'}, status=400)
+        
+        
