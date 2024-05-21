@@ -67,19 +67,10 @@ def register(request):
                 user.qr_code.save(f'{user.bh_id}.png', File(qr_io), save=False)
                 user.save()
                 form.save()
-
-<<<<<<< HEAD
-                login_user(request, user);
-
-
-=======
-                user.save()
-                form.save()
                 login_user(request, user)
 
 
 
->>>>>>> 4b5f5284dd4223889a1b7af21630e11eeb4daf7c
                 return redirect('virtual_id')
         except Exception as e:
             print(e)
@@ -101,7 +92,6 @@ def login(request):
 
         return render(request, 'UserAuthentication/login.html', context = items)
     elif request.method == "POST":
-<<<<<<< HEAD
         try:
             form = LoginForm(request.POST)
             authenticated_user = authenticate(username = form.data['username'], password = form.data['password'])
@@ -112,15 +102,6 @@ def login(request):
                 else:
                     login_user(request, authenticated_user)
                     return redirect('virtual_id')
-=======
-        form = LoginForm(request.POST)
-        authenticated_user = authenticate(username = form.data['username'], password = form.data['password'])
-        if authenticated_user is not None:
-            login_user(request, authenticated_user)
-            return redirect('virtual_id')
->>>>>>> 4b5f5284dd4223889a1b7af21630e11eeb4daf7c
-
-
             else:
                 items = {
                     'form': form
@@ -129,18 +110,12 @@ def login(request):
 
             return render(request, 'UserAuthentication/login.html', context = items)
 
-
-
-<<<<<<< HEAD
-                return render(request, 'UserAuthentication/login.html', context = items)
         except:
             return redirect('index')
-=======
->>>>>>> 4b5f5284dd4223889a1b7af21630e11eeb4daf7c
 
 def edit_profile(request):
     if request.method == "GET":
-        
+
         items = {
             'form': EditProfileForm(instance=request.user)
         }
@@ -160,7 +135,7 @@ def edit_profile(request):
                 }
                 return render(request, 'UserAuthentication/edit_profile.html', context = items)
         except Exception as e:
-           
+
             return redirect('virtual_id')
 
 
@@ -224,9 +199,9 @@ def getBarangays(request):
 
 
 
-def checkUsername(request): 
-    # check if the username exists, if it is return true, if its not then false in a jsonresponse 
-    
+def checkUsername(request):
+    # check if the username exists, if it is return true, if its not then false in a jsonresponse
+
     if request.method == "POST":
         data = request.body.decode('utf-8')
         data_dict = json.loads(data)
@@ -237,5 +212,4 @@ def checkUsername(request):
             return JsonResponse({'username_exists': 'false'}, status=200)
 
     return JsonResponse({'error': 'Invalid method'}, status=400)
-        
-        
+
