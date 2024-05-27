@@ -13,7 +13,7 @@ class UserForm(ModelForm):
     province = forms.CharField(widget=forms.Select(choices=[],  attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
     city_municipality = forms.CharField(widget=forms.Select(choices=[], attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
     barangay = forms.CharField(widget=forms.Select(choices=[], attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}))
-
+    photo = forms.ImageField(widget=forms.FileInput(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline', 'accept': 'image/*', 'capture': 'camera'}))
 
     class Meta:
         model = Account
