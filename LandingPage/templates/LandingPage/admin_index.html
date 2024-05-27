@@ -1,49 +1,21 @@
-{% extends "LandingPage/base/base.html" %} {% block content %}
+{% extends "LandingPage/base/blank_base.html" %} {% block content %}
 
-<div class="h-screen w-full"></div>
-<div
-  class="h-screen w-full flex flex-col bg-gray-100 justify-center items-center"
->
-  <div>
+<div class="h-screen w-full flex bg-gray-100 justify-between items-center">
+  <div class="h-1/2 w-1/2">
     <canvas id="myChart"></canvas>
+  </div>
+  <div class="h-1/2 w-1/2">
+    <canvas id="ageChart"></canvas>
+  </div>
+</div>
+
+<div class="h-screen w-full flex bg-gray-100 justify-between">
+  <div class="h-1/2 w-full">
+    <canvas id="familyVotersChart"></canvas>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
-  const ctx = document.getElementById("myChart")
-
-  fetch("/api/barangay_data")
-    .then((response) => response.json())
-    .then((data) => {
-      const jsonData = JSON.parse(data)
-      const labels = Object.keys(jsonData)
-      const counts = Object.values(jsonData)
-      console.log(data)
-
-      new Chart(ctx, {
-        type: "pie",
-        data: {
-          labels: labels,
-
-          datasets: [
-            {
-              label: "# of Registered Members",
-              data: counts,
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          plugins: {
-            title: {
-              display: true,
-              text: "Registered BH Members",
-            },
-          },
-        },
-      })
-    })
-</script>
+<script src="/static/charts.js"></script>
 {% endblock content %}

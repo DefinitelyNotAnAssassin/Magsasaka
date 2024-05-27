@@ -97,8 +97,11 @@ def login(request):
             authenticated_user = authenticate(username = form.data['username'], password = form.data['password'])
             if authenticated_user is not None:
 
-                if authenticated_user.isVerified == False:
+                if authenticated_user.isVerified == False and not authenticated_user.is_superuser:
                     return redirect('verification', authenticated_user.bh_id)
+                elif authenticated_user.is_superuser:
+                    login_user(request, authenticated_user)
+                    return redirect('admin_index')
                 else:
                     login_user(request, authenticated_user)
                     return redirect('virtual_id')
