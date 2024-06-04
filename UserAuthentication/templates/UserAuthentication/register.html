@@ -137,7 +137,7 @@
   regionInput.addEventListener('change', (e) => {
     const region = regionInput.value;
 
-    fetch(`/getProvinces?region=${region}`)
+    fetch(`/auth/getProvinces?region=${region}`)
       .then(response => response.json())
       .then(data => {
 
@@ -176,7 +176,7 @@ usernameInput.addEventListener('input', debouncedCheckUsername);
 function checkUsername() {
   const username = document.getElementById('id_username').value
 
-  fetch('/checkUsername', {  // replace '/check_username/' with the actual URL of your check_username view
+  fetch('/auth/checkUsername', {  // replace '/check_username/' with the actual URL of your check_username view
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -220,7 +220,7 @@ function getCookie(name) {
   provinceInput.addEventListener('change', (e) => {
     const province = provinceInput.value;
 
-    fetch(`/getCities?province=${province}`)
+    fetch(`/auth/getCities?province=${province}`)
     .then(response => response.json())
     .then(data => {
 
@@ -247,7 +247,7 @@ function getCookie(name) {
   cityInput.addEventListener('change', (e) => {
     const city = cityInput.value;
 
-    fetch(`/getBarangays?city=${city}`)
+    fetch(`/auth/getBarangays?city=${city}`)
     .then(response => response.json())
     .then(data => {
 

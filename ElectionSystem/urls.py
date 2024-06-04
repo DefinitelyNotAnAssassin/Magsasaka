@@ -18,10 +18,10 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/admin/', admin.site.urls),
     path('', include('LandingPage.urls')),
-    path('', include('UserAuthentication.urls')),
-    path('', include('UserModule.urls')),
+    path('auth/', include('UserAuthentication.urls')),
+    path('user/', include('UserModule.urls')),
     path('api/', include('API.urls')),
     path('records/', include('TransactionRecord.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

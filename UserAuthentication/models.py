@@ -29,6 +29,6 @@ class Account(AbstractUser):
     location = models.CharField(max_length=255, blank=True, null=True)
     bh_social_services = models.CharField(max_length=255, default='None', blank=True, null=True)
     project_in_my_area = models.CharField(max_length=255, default='None', blank=True, null=True)
-    bh_id = models.CharField(max_length=255, default='None', blank=True, null=True )
+    bh_id = models.CharField(max_length=255, unique=True, blank=True, null=True)
     qr_code = models.ImageField(upload_to='UserModule/static/qr_code/', blank = True, null = True)
     isVerified = models.BooleanField(default=False)
