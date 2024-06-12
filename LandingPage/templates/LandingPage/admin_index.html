@@ -1,7 +1,16 @@
 {% extends "LandingPage/base/blank_base.html" %} {% block content %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<div class="h-screen w-full flex items-center justify-center">
+  <h1 class="text-4xl font-semibold text-center">
+    Bagong Henerasyon <br />
+    Admin
+  </h1>
+</div>
 
 <div
-  class="h-screen w-full flex flex-col items-center justify-center bg-[#EA0104] text-white font-semibold"
+  class="h-screen w-full flex flex-col items-center justify-center font-semibold z-10"
 >
   <form
     class="h-1/2 w-1/2"
@@ -35,8 +44,31 @@
     <canvas id="familyVotersChart"></canvas>
   </div>
 </div>
-
+<div id="mapid" style="height: 600px"></div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // fetch the api/get_locations
+
+  // Initialize the map
+  var mymap = L.map("mapid").setView([14.6488, 121.0509], 10) // Set initial view to [0, 0] and zoom level 2
+
+  // Set up the OSM layer
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+    maxZoom: 18,
+  }).addTo(mymap)
+
+  // Fetch the locations and add a marker for each one
+  fetch("/api/get_locations")
+    .then((response) => response.json())
+    .then((data) => {
+      data.forEach((location) => {
+        L.marker([location.latitude, location.longitude]).addTo(mymap)
+      })
+    })
+</script>
 
 <script src="/static/charts.js"></script>
 {% endblock content %}

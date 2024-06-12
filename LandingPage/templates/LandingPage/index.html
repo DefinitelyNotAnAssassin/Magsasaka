@@ -1,5 +1,12 @@
 {% extends "LandingPage/base/base.html" %} {% block content %}
 
+
+<div class="h-screen absolute top-0 right-0 left-0 z-30 w-full bg-gray-900 bg-opacity-90 flex flex-col items-center justify-center">
+  <h1 class="text-5xl font-bold text-white">
+    Bagong Henerasyon Partylist
+  </h1>
+  <button class="bg-white px-2 p-2 rounded mt-4">Makabagong Pamilya</button>
+</div>
 <div id="default-carousel" class="relative w-full z-0" data-carousel="slide">
   <!-- Carousel wrapper -->
 
@@ -29,7 +36,7 @@
         <figcaption class="flex items-center justify-center mt-6 space-x-3">
           <img
             class="w-20 h-20 md:w-28 md:h-32 rounded rounded-lg"
-            src="https://i.ibb.co/tLf6H2Z/Capture.png"
+            src="/media/bh_congresswoman.png"
             alt="profile picture"
           />
           <div class="flex items-center divide-x-2 divide-gray-500">
@@ -54,23 +61,28 @@
     <div
       class="relative md:h-[90vh] md:mt-[10vh] md:w-1/2 h-screen w-full overflow-hidden rounded-lg"
     >
-      <!-- Item 1 -->
-      <div class="hidden duration-700 ease-in-out" data-carousel-item>
-        <a href="https://ibb.co/dtmMbF4"><img src="https://i.ibb.co/HCh4N6T/432744507-866406098860784-8507003588055388374-n.jpg" alt="432744507-866406098860784-8507003588055388374-n" border="0"></a>
-      </div>
-      <!-- Item 2 -->
-      <div class="hidden duration-700 ease-in-out" data-carousel-item>
-        <a href="https://ibb.co/P69fPVk"><img src="https://i.ibb.co/FD0jydp/437778229-888084043359656-5927687956303413590-n.jpg" alt="437778229-888084043359656-5927687956303413590-n" border="0"></a>
-      </div>
-      <!-- Item 3 -->
-      <div class="hidden duration-700 ease-in-out" data-carousel-item>
-        <a href="https://ibb.co/wNG837x"><img src="https://i.ibb.co/qMqhXCP/443696447-910544381113622-6883593811072473454-n.jpg" alt="443696447-910544381113622-6883593811072473454-n" border="0"></a>
-      </div>
-      <!-- Item 4 -->
-      <div class="hidden duration-700 ease-in-out" data-carousel-item>
-        <a href="https://ibb.co/FHNVxh6"><img src="https://i.ibb.co/8YTcKmM/444483831-910549784446415-6621239631883038877-n.jpg" alt="444483831-910549784446415-6621239631883038877-n" border="0"></a>
-      </div>
-      </div>
+        <!-- Item 1 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <a href="https://ibb.co/dtmMbF4"><img src="media/bh_poster1.jpg" border="0"></a>
+        </div>
+        <!-- Item 2 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <a href="https://ibb.co/P69fPVk"><img src="media/bh_poster2.jpg" border="0"></a>
+        </div>
+        <!-- Item 3 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <a href="https://ibb.co/wNG837x"><img src="media/bh_poster3.jpg" border="0"></a>
+        </div>
+        <!-- Item 4 -->
+        <div class="hidden duration-700 ease-in-out" data-carousel-item>
+          <a href="https://ibb.co/FHNVxh6"><img src="media/bh_poster4.jpg" border="0"></a>
+        </div>
+  
+          <!-- Item 5 -->
+          <div class="hidden duration-700 ease-in-out" data-carousel-item>
+            <a href="https://ibb.co/FHNVxh6"><img src="media/bh_poster5.jpg" border="0"></a>
+          </div>
+        </div>
     </div>
   </div>
 </div>
@@ -91,7 +103,7 @@
 
         <img
           class="w-28 h-32 rounded rounded-lg"
-          src="https://i.ibb.co/tLf6H2Z/Capture.png"
+          src="/media/bh_congresswoman.png"
           alt="profile picture"
         />
 
@@ -113,7 +125,7 @@
   >
     <iframe
       class="mb-4 w-full h-[50vh] sm:h-[70vh]"
-      src="https://www.youtube.com/embed/9vQSyM6GFyo?si=XcSQ2f-Y5rS9QN9b&autoplay=1&mute=1"
+      src="https://www.youtube.com/embed/9vQSyM6GFyo?si=XcSQ2f-Y5rS9QN9b&autoplay=1&mute=0"
       title="YouTube video player"
       frameborder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -134,9 +146,9 @@
   </div>
 </div>
 
-<!-- This is an example component -->
 
-<div class="">
+
+<div class="footer-area">
   <footer class="p-4 bg-[#EA0104]">
     <div class="sm:flex sm:items-center sm:justify-between">
       <span class="text-sm text-white sm:text-center"

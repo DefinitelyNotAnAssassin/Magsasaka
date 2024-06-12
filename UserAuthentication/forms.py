@@ -1,8 +1,8 @@
+from django import forms
 from django.forms import ModelForm
 from UserAuthentication.models import Account
-from django import forms
 from ph_geography.models import Municipality, Region, Province, Barangay
-
+import re
 
 
 
@@ -46,6 +46,8 @@ class UserForm(ModelForm):
             'project_in_my_area': forms.TextInput(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'}),
 
         }
+        
+    
 
 
 class LoginForm(ModelForm):

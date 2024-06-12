@@ -73,3 +73,16 @@ def family_voters_data(request):
         data[key] = voter['count']
 
     return JsonResponse(json.dumps(data), safe=False)
+
+
+def get_locations(request): 
+    # get the longitude and latitude of each user 
+
+    data = []
+    locations = Account.objects.values('longitude', 'latitude')
+
+    for location in locations:
+        if location['longitude'] is not None and location['latitude'] is not None:
+            data.append(location)
+
+    return JsonResponse(data, safe=False)

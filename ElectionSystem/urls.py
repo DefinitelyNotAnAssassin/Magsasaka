@@ -24,4 +24,4 @@ urlpatterns = [
     path('user/', include('UserModule.urls')),
     path('api/', include('API.urls')),
     path('records/', include('TransactionRecord.urls'))
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
