@@ -47,6 +47,16 @@ class UserForm(ModelForm):
 
         }
         
+    # create a validation for the contact number to be a valid philippine number
+    
+    def clean_contact_number(self):
+        contact_number = self.cleaned_data['contact_number']
+        if not re.match(r'^\+?63[0-9]{10}$', contact_number):
+            if not re.match(r'^09[0-9]{9}$', contact_number):
+                raise forms.ValidationError("Invalid Philippine Contact Number")
+        
+        return contact_number
+        
     
 
 

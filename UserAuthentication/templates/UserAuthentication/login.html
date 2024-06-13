@@ -6,14 +6,14 @@
 
 <div class="flex flex-col md:flex-row items-center h-screen">
     <div
-    class="items-center justify-center h-full bg-primary md:w-1/2 hidden md:flex bg-[#970029]"
+    class="items-center justify-center h-full bg-primary md:w-1/2 hidden md:flex bg-white"
   >
- <img src="/media/bh_banner.jpg" alt="BH Poster" border="0">
+ <img src="/media/magsasaka_partylist_logo.png" alt="BH Poster" border="0">
   </div>
     <div class="flex h-full bg-white md:w-1/2 rounded mt-6 mb-8 mb-4 justify-center items-center">
         
         <form action = {% url 'login' %} method = "post" hx-post="{% url 'login' %}" hx-push-url="true" hx-target="body" class="w-full md:w-3/4 items-center md:p-20" autocomplete="off">
-            <h2 class="text-2xl font-bold mt-6 text-center">BH Login</h2>
+            <h2 class="text-2xl font-bold mt-6 text-center">Magsasaka Partylist Login</h2>
 
             {% if messages %} 
 

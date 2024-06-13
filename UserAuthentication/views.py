@@ -56,7 +56,7 @@ def register(request):
             if form.is_valid():
                 user = form.save(commit=False)
                 user.set_password(form.cleaned_data['password'])
-                user.bh_id = f'{user.barangay}-{uuid4()}'
+                user.bh_id = f'{user.first_name} {user.last_name} - {user.barangay}-{uuid4()}'
                 user.isVerified = True
                 user.contact_number = '+63' + user.contact_number[1:] if user.contact_number.startswith('0') else user.contact_number
                 qr = qrcode.make(user.bh_id)
@@ -65,8 +65,17 @@ def register(request):
                 qr_io.seek(0)
 
                 user.qr_code.save(f'{user.bh_id}.png', File(qr_io), save=False)
-                user.longitude = request.POST.get('longitude', 121.05090000)
-                user.latitude = request.POST.get('latitude', 14.64880000)
+                longitude = request.POST.get('longitude')
+                if longitude != '':
+                    user.longitude = longitude
+                else:
+                    user.longitude = 121.05090000
+
+                latitude = request.POST.get('latitude')
+                if latitude != '':
+                    user.latitude = latitude
+                else:
+                    user.latitude = 14.64880000
                 user.save()
                 form.save()
                 login_user(request, user)
