@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'bagonghenerasyon.pythonanywhere.com',
+    'magsasaka.pythonanywhere.com',
 ]
 
 
