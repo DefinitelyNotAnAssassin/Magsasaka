@@ -11,7 +11,7 @@
     {% block head %} {% endblock head %}
   </head>
   <body class="bg-[#EA0104]">
-    <nav class="bg-[#EA0104] border-gray-200">
+    <nav class="border-gray-200 absolute top-0 z-10 right-0 left-0">
       <div class="flex flex-wrap items-center justify-between w-full p-4">
         <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
           <img src="/media/bh_logo.png" class="h-8" alt="BH Logo" />
@@ -55,7 +55,7 @@
         </div>
       </div>
     </nav>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
     {% block content %}{% endblock content %}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>

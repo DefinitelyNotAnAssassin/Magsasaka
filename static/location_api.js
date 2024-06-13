@@ -6,8 +6,6 @@ if (navigator.geolocation) {
 
         document.getElementById('latitude').value = lat;
         document.getElementById('longitude').value = lon;
-
-        
     });
 } else {
     alert("Please enable location services to register.");
